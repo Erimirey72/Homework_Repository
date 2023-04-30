@@ -21,3 +21,7 @@ Console.WriteLine("Third math example: " + (2 * Math.PI * x));
 
 Console.WriteLine("Fourth math example: " + Math.Max(x, y));
 
+DateTime currentDate = DateTime.Now;
+DateTime nextNewYear = new DateTime(currentDate.Year + 1, 1, 1);
+int daysToNewYearLeft = (nextNewYear - currentDate).Days;
+Console.WriteLine(daysToNewYearLeft + " days left to New Year");
