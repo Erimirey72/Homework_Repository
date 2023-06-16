@@ -13,7 +13,7 @@ class Program
 {
     static void Main(string[] args)
     { 
-        static void selectionSort(int[] arr, bool asc)
+        static void SelectionSort(int[] arr, bool asc)
         {
             for (int i = 0; i < arr.Length - 1; i++)
             {
@@ -36,7 +36,7 @@ class Program
             }
         }
 
-        static void bubbleSort(int[] arr, bool asc)
+        static void BubbleSort(int[] arr, bool asc)
         {
             int temp = 0;
 
@@ -69,7 +69,7 @@ class Program
             }
         }
 
-        static void insertionSort(int[] arr, bool asc)
+        static void InsertionSort(int[] arr, bool asc)
         {
             for (int i = 0; i < arr.Length - 1; i++)
             {
@@ -100,7 +100,7 @@ class Program
             }
         }
 
-        static void printArray(int[] arr)
+        static void PrintArray(int[] arr)
         {
             for (int i = 0; i < arr.Length; ++i)
                 Console.Write(arr[i] + " ");
@@ -115,19 +115,19 @@ class Program
                     switch (type)
                     {
                         case SortAlgorithmType.Selection:
-                            selectionSort(arr, true);
+                            SelectionSort(arr, true);
                             Console.WriteLine("Sorted array with selection:");
-                            printArray(arr);
+                            PrintArray(arr);
                             break;
                         case SortAlgorithmType.Bubble:
-                            bubbleSort(arr, true);
+                            BubbleSort(arr, true);
                             Console.WriteLine("Sorted array with bubble:");
-                            printArray(arr);
+                            PrintArray(arr);
                             break;
                         case SortAlgorithmType.Insertion:
-                            insertionSort(arr, true);
+                            InsertionSort(arr, true);
                             Console.WriteLine("Sorted array with insertion:");
-                            printArray(arr);
+                            PrintArray(arr);
                             break;
                     }
                     break;
@@ -135,19 +135,19 @@ class Program
                     switch (type)
                     {
                         case SortAlgorithmType.Selection:
-                            selectionSort(arr, false);
+                            SelectionSort(arr, false);
                             Console.WriteLine("Sorted array with selection:");
-                            printArray(arr);
+                            PrintArray(arr);
                             break;
                         case SortAlgorithmType.Bubble:
-                            bubbleSort(arr, false);
+                            BubbleSort(arr, false);
                             Console.WriteLine("Sorted array with bubble:");
-                            printArray(arr);
+                            PrintArray(arr);
                             break;
                         case SortAlgorithmType.Insertion:
-                            insertionSort(arr, false);
+                            InsertionSort(arr, false);
                             Console.WriteLine("Sorted array with insertion:");
-                            printArray(arr);
+                            PrintArray(arr);
                             break;
                     }
                     break;
