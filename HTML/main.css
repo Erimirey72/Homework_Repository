@@ -1,0 +1,81 @@
+* {
+    background-color: darkgrey;
+}
+
+#first {
+    color: red;
+}
+
+#second {
+    color: purple;
+}
+
+#third {
+    color: aqua;
+}
+
+#fourth {
+    color: azure;
+}
+
+#fifth {
+    color: yellow;
+}
+
+#sixth {
+    color: deeppink;
+}
+#firstDiv {
+    float: left;
+    width: 33%;
+}
+#secondDiv {
+    float: right;
+    width: 33%;
+}
+ul {
+    list-style: none;
+}
+h1 {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+p {
+    font-family:Bahnschrift;
+}
+#spinningImage {
+    cursor: pointer;
+    transition: transform 0.5s ease;
+}
+.rotate {
+    animation: rotateImage 1s linear infinite;
+}
+@keyframes rotateImage {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+.shake {
+    transition: transform 0.1s;
+}
+
+.shake-animation {
+    animation: shakeText 0.5s;
+}
+
+@keyframes shakeText {
+    0%, 100% {
+        transform: translateX(0);
+    }
+
+    25%, 75% {
+        transform: translateX(-5px);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+}
