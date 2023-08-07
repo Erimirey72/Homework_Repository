@@ -1,0 +1,44 @@
+* {
+    background-color: darkgrey;
+}
+
+#first {
+    color: red;
+}
+
+#second {
+    color: purple;
+}
+
+#third {
+    color: aqua;
+}
+
+#fourth {
+    color: azure;
+}
+
+#fifth {
+    color: yellow;
+}
+
+#sixth {
+    color: deeppink;
+}
+#firstDiv {
+    float: left;
+    width: 33%;
+}
+#secondDiv {
+    float: right;
+    width: 33%;
+}
+ul {
+    list-style: none;
+}
+h1 {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+p {
+    font-family:Bahnschrift;
+}
