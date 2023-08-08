@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Place Your Order</h2>
+        <form>
+            <div class="form-group">
+                <label for="customerName">Your Name</label>
+                <input type="text" required class="form-control" id="customerName" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" required class="form-control" id="email" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="product">Product</label>
+                <input type="text" required class="form-control" id="product" placeholder="Enter product name">
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input type="number" required class="form-control" id="quantity" placeholder="Enter quantity">
+            </div>
+            <div class="form-group">
+                <label for="address">Shipping Address</label>
+                <textarea class="form-control" required id="address" rows="3" placeholder="Enter shipping address"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="paymentMethod">Payment Method</label>
+                <select class="form-control" required id="paymentMethod">
+                    <option>Credit Card</option>
+                    <option>Google Pay</option>
+                    <option>Portmone</option>
+                    <option>Payoneer</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="comments">Additional Comments</label>
+                <textarea class="form-control" id="comments" rows="3" placeholder="Enter any additional comments"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Place Order</button>
+        </form>
+    </div>
+</body>
+</html>
