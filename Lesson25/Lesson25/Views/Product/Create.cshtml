@@ -1,6 +1,6 @@
-﻿@model Product
+﻿@model ProductsModel
 
-<h2>Create New Product</h2>
+<h2>Add New Product</h2>
 
 <form asp-action="Create">
     <div class="form-group">
@@ -11,7 +11,7 @@
         <label asp-for="Price"></label>
         <input asp-for="Price" class="form-control" />
     </div>
-    <button type="submit" class="btn btn-primary">Create</button>
+    <button type="submit" class="btn btn-primary">Add</button>
 </form>
 
 <a asp-action="Index">Back to List</a>

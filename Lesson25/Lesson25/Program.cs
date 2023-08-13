@@ -1,10 +1,20 @@
 using Microsoft.EntityFrameworkCore;
-using Lesson25.Context;
+using BusinessLogic;
+using Lesson25.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add<ExceptionFilter>();
+});
+
+builder.Host.ConfigureLogging(logging =>
+{
+    logging.ClearProviders();
+    logging.AddConsole();
+});
 
 ConfigureServices(builder.Services, builder.Configuration);
 
@@ -30,7 +40,7 @@ app.Run();
 
 static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
 {
-    services.AddDbContext<ProductDbContext>(options =>
+    services.AddDbContext<ShopDbContext>(options =>
     {
         options.UseInMemoryDatabase("ProductDbContext");
     });

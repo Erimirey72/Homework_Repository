@@ -1,17 +1,18 @@
-﻿using Lesson25.Models;
+﻿using Models;
 using Microsoft.AspNetCore.Mvc;
-using Lesson25.Context;
-using System;
+using BusinessLogic;
 using System.Diagnostics;
+using System.Globalization;
+using Lesson25.Models;
 
 namespace Lesson25.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ProductDbContext _products;
+        private readonly ShopDbContext _products;
 
-        public HomeController(ILogger<HomeController> logger, ProductDbContext products)
+        public HomeController(ILogger<HomeController> logger, ShopDbContext products)
         {
             _logger = logger;
             _products = products;
@@ -19,28 +20,14 @@ namespace Lesson25.Controllers
 
         public IActionResult Index()
         {
-            var model = new ProductsModel();
+            var model = new IndexViewModel();
 
-            model.ProductsList = _products.Products.ToList();
+            var products = _products.Products.ToList();
+
+            model.Products = products;
 
             return View(model);
         }
-
-        [HttpPost]
-        public IActionResult Create(Product product)
-        {
-            _products.Products.Add(product);
-            _products.SaveChanges();
-
-            return Redirect("Index");
-        }
-
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
-
 
         public IActionResult Privacy()
         {

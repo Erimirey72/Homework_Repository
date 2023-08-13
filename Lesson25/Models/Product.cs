@@ -1,8 +1,8 @@
-﻿namespace Lesson25.Models
+﻿namespace Models
 {
     public class Product
     {
-        public int ID { get; set; }
+        public Guid Id { get; set; }
         public string? Name { get; set; }
         public decimal Price { get; set; }
     }
