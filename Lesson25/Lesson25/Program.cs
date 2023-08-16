@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using BusinessLogic;
 using Lesson25.Filters;
+using BusinessLogic.Service;
+using BusinessLogic.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,7 @@ builder.Host.ConfigureLogging(logging =>
     logging.AddConsole();
 });
 
+builder.Services.AddScoped<IProductService, ProductService>();
 ConfigureServices(builder.Services, builder.Configuration);
 
 var app = builder.Build();

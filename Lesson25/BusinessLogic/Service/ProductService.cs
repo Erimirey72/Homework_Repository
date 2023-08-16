@@ -1,10 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BusinessLogic.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Models;
-using System.Globalization;
 
 namespace BusinessLogic.Service
 {
-    public class ProductService
+    public class ProductService : IProductService
     {
         private readonly ShopDbContext _shop;
 
@@ -20,7 +20,7 @@ namespace BusinessLogic.Service
 
         public Guid Create(Product product)
         {
-            _shop.Add(product);
+            _shop.Products.Add(product);
 
             var result = _shop.SaveChanges();
 

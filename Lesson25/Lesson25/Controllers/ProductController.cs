@@ -1,20 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Models;
 using BusinessLogic;
-using BusinessLogic.Service;
 using Lesson25.Models;
+using BusinessLogic.Interfaces;
 
 namespace Lesson25.Controllers
 {
     public class ProductController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ProductService _productService;
+        private readonly IProductService _productService;
 
-        public ProductController(ILogger<HomeController> logger, ShopDbContext shop)
+        public ProductController(ILogger<HomeController> logger, ShopDbContext shop, IProductService productService)
         {
             _logger = logger;
-            _productService = new ProductService(shop);
+            _productService = productService;
         }
 
         private static List<Product> products = new List<Product>();
