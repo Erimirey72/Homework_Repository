@@ -1,16 +1,20 @@
 ﻿using BusinessLogic.Interfaces;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Models;
+using Validators;
 
 namespace BusinessLogic.Service
 {
     public class ProductService : IProductService
     {
         private readonly ShopDbContext _shop;
+        private readonly IValidator<Product> _productValidator;
 
-        public ProductService(ShopDbContext shop)
+        public ProductService(ShopDbContext shop, IValidator<Product> productValidator)
         {
             _shop = shop;
+            _productValidator = productValidator;
         }
 
         public IEnumerable<Product> GetAll()
@@ -20,6 +24,8 @@ namespace BusinessLogic.Service
 
         public Guid Create(Product product)
         {
+            _productValidator.ValidateAndThrow(product);
+
             _shop.Products.Add(product);
 
             var result = _shop.SaveChanges();
@@ -29,6 +35,8 @@ namespace BusinessLogic.Service
 
         public Product Edit(Product product)
         {
+            _productValidator.ValidateAndThrow(product);
+
             var existingProduct = _shop.Products.FirstOrDefault(x => x.Id == product.Id);
             if (existingProduct == null)
             {

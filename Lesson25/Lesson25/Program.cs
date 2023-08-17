@@ -3,6 +3,9 @@ using BusinessLogic;
 using Lesson25.Filters;
 using BusinessLogic.Service;
 using BusinessLogic.Interfaces;
+using FluentValidation;
+using Lesson25.Models;
+using Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,4 +50,5 @@ static void ConfigureServices(IServiceCollection services, IConfiguration config
     {
         options.UseInMemoryDatabase("ProductDbContext");
     });
+    services.AddScoped<IValidator<ProductsModel>, ProductValidator>();
 }

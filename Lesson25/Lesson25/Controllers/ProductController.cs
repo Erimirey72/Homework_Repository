@@ -3,18 +3,22 @@ using Models;
 using BusinessLogic;
 using Lesson25.Models;
 using BusinessLogic.Interfaces;
+using FluentValidation;
+using System.ComponentModel.DataAnnotations;
 
 namespace Lesson25.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<ProductController> _logger;
         private readonly IProductService _productService;
+        private readonly IValidator<ProductsModel> _validator;
 
-        public ProductController(ILogger<HomeController> logger, ShopDbContext shop, IProductService productService)
+        public ProductController(ILogger<ProductController> logger, ShopDbContext shop, IProductService productService, IValidator<ProductsModel> validator)
         {
             _logger = logger;
             _productService = productService;
+            _validator = validator;
         }
 
         private static List<Product> products = new List<Product>();
@@ -39,8 +43,11 @@ namespace Lesson25.Controllers
         [HttpPost]
         public IActionResult Create([FromForm] ProductsModel model)
         {
-            if (model != null)
+            var validationResult = _validator.Validate(model);
+            if (validationResult.IsValid)
             {
+            try
+            { 
                 _productService.Create(new Product
                 {
                     Id = Guid.NewGuid(),
@@ -48,9 +55,15 @@ namespace Lesson25.Controllers
                     Price = model.Price
                 });
             }
+                catch (Exception e)
+                {
+                _logger.LogError(e, "Request failed. Request details: {@model}", model);
+            }
+        }
             else
             {
                 throw new ArgumentException("Invalid input");
+                return View();
             }
 
             return Redirect("Index");
@@ -101,7 +114,6 @@ namespace Lesson25.Controllers
             }
             catch (Exception e)
             {
-                //_logger.Log("Request failed.");
                 _logger.LogError(e, "Request failed. Request details: {id}", id);
             }
 

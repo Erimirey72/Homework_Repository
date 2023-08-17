@@ -3,6 +3,7 @@ using BusinessLogic.Service;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using Moq;
+using Lesson25.Models;
 
 namespace BusinessLogicTests
 {
@@ -31,8 +32,9 @@ namespace BusinessLogicTests
             var mockSet = InitHelpers.GetQueryableMockDbSet(products);
             var mockContext = InitHelpers.GetDbContext();
             mockContext.Setup(m => m.Products).Returns(mockSet);
+            var validator = new ProductValidator();
 
-            var service = new ProductService(mockContext.Object);
+            var service = new ProductService(mockContext.Object, (FluentValidation.IValidator<Product>)validator);
 
             // Act
             var result = service.GetAll();
@@ -49,8 +51,9 @@ namespace BusinessLogicTests
             var mockSet = InitHelpers.GetQueryableMockDbSet(new List<Product>());
             var mockContext = InitHelpers.GetDbContext();
             mockContext.Setup(m => m.Products).Returns(mockSet);
+            var validator = new ProductValidator();
 
-            var service = new ProductService(mockContext.Object);
+            var service = new ProductService(mockContext.Object, (FluentValidation.IValidator<Product>)validator);
 
             // Act
             var result = service.GetAll();
@@ -67,8 +70,9 @@ namespace BusinessLogicTests
             var mockSet = InitHelpers.GetQueryableMockDbSet(new List<Product>());
             var mockContext = InitHelpers.GetDbContext();
             mockContext.Setup(m => m.Products).Returns(mockSet);
+            var validator = new ProductValidator();
 
-            var service = new ProductService(mockContext.Object);
+            var service = new ProductService(mockContext.Object, (FluentValidation.IValidator<Product>)validator);
 
             // Act
             var result = service.Create(new Product
@@ -106,8 +110,9 @@ namespace BusinessLogicTests
             var mockSet = InitHelpers.GetQueryableMockDbSet(products);
             var mockContext = InitHelpers.GetDbContext();
             mockContext.Setup(m => m.Products).Returns(mockSet);
+            var validator = new ProductValidator();
 
-            var service = new ProductService(mockContext.Object);
+            var service = new ProductService(mockContext.Object, (FluentValidation.IValidator<Product>)validator);
 
             // Act
             var result = service.Create(new Product
@@ -146,8 +151,9 @@ namespace BusinessLogicTests
             var mockSet = InitHelpers.GetQueryableMockDbSet(products);
             var mockContext = InitHelpers.GetDbContext();
             mockContext.Setup(m => m.Products).Returns(mockSet);
+            var validator = new ProductValidator();
 
-            var service = new ProductService(mockContext.Object);
+            var service = new ProductService(mockContext.Object, (FluentValidation.IValidator<Product>)validator);
 
             // Act
             var updatedMeeting = new Product
@@ -181,13 +187,14 @@ namespace BusinessLogicTests
             };
 
             var mockDbSet = InitHelpers.GetQueryableMockDbSet(new List<Product>());
-            var mockDbContext = InitHelpers.GetDbContext();
-            mockDbContext.Setup(db => db.Products).Returns(mockDbSet);
+            var mockContext = InitHelpers.GetDbContext();
+            mockContext.Setup(db => db.Products).Returns(mockDbSet);
+            var validator = new ProductValidator();
 
-            var productService = new ProductService(mockDbContext.Object);
+            var service = new ProductService(mockContext.Object, (FluentValidation.IValidator<Product>)validator);
 
             // Act & Assert
-            Assert.Throws<ArgumentException>(() => productService.Edit(updatedProduct));
+            Assert.Throws<ArgumentException>(() => service.Edit(updatedProduct));
         }
 
         [Fact]
@@ -204,17 +211,18 @@ namespace BusinessLogicTests
 
             var products = new List<Product> { existingProduct };
 
-            var mockDbSet = InitHelpers.GetQueryableMockDbSet(products);
-            var mockDbContext = InitHelpers.GetDbContext();
-            mockDbContext.Setup(db => db.Products).Returns(mockDbSet);
+            var mockDbSet = InitHelpers.GetQueryableMockDbSet(new List<Product>());
+            var mockContext = InitHelpers.GetDbContext();
+            mockContext.Setup(db => db.Products).Returns(mockDbSet);
+            var validator = new ProductValidator();
 
-            var productService = new ProductService(mockDbContext.Object);
+            var service = new ProductService(mockContext.Object, (FluentValidation.IValidator<Product>)validator);
 
             // Act
-            productService.DeleteById(productId);
+            service.DeleteById(productId);
 
             // Assert
-            mockDbContext.Verify(db => db.SaveChanges(), Times.Once);
+            mockContext.Verify(db => db.SaveChanges(), Times.Once);
         }
 
         [Fact]
@@ -224,17 +232,18 @@ namespace BusinessLogicTests
             var productId = Guid.NewGuid();
 
             var mockDbSet = InitHelpers.GetQueryableMockDbSet(new List<Product>());
-            var mockDbContext = InitHelpers.GetDbContext();
-            mockDbContext.Setup(db => db.Products).Returns(mockDbSet);
+            var mockContext = InitHelpers.GetDbContext();
+            mockContext.Setup(db => db.Products).Returns(mockDbSet);
+            var validator = new ProductValidator();
 
-            var productService = new ProductService(mockDbContext.Object);
+            var service = new ProductService(mockContext.Object, (FluentValidation.IValidator<Product>)validator);
 
             // Act & Assert
-            var exception = Assert.Throws<ArgumentException>(() => productService.DeleteById(productId));
+            var exception = Assert.Throws<ArgumentException>(() => service.DeleteById(productId));
             Assert.Equal("No such id exists", exception.Message);
 
             // Verify that SaveChanges was not called
-            mockDbContext.Verify(db => db.SaveChanges(), Times.Never);
+            mockContext.Verify(db => db.SaveChanges(), Times.Never);
         }
     }
 }

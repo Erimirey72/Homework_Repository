@@ -2,8 +2,10 @@
 
 <h2>Add New Product</h2>
 
+@Html.ValidationSummary()
+
 <form asp-action="Create">
-    <div class="form-group">
+    <div class="form-group" method="post">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
     </div>
