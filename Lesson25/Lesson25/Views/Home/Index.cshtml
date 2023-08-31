@@ -1,0 +1,33 @@
+﻿@model IndexViewModel
+@{
+    ViewData["Title"] = "All products";
+}
+
+<div class="table-responsive">
+    <a href="@Url.Action("Create", "Product")" class="btn btn-primary">Add</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>View</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Products)
+            {
+                <tr>
+                    <td>@product.Id</td>
+                    <td>@product.Name</td>
+                    <td>@product.Price</td>
+                    <td class="text-center"><a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-primary">View</a></td>
+                    <td class="text-center"><a href="@Url.Action("Edit", "Product", new { id = product.Id })" class="btn btn-primary">Edit</a></td>
+                    <td class="text-center"><a href="@Url.Action("Delete", "Product", new { id = product.Id })" class="btn btn-danger">Delete</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

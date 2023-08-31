@@ -1,0 +1,18 @@
+﻿﻿@{
+    ViewData["Title"] = "Delete product";
+}
+
+<h1>Delete Product</h1>
+
+<div class="myform">
+    <h1 class="display-4">Delete product</h1>
+    <form asp-action="delete" method="post">
+        <input type="hidden" />
+        <div>
+            <p></p>
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Cancel</a>
+            <p></p>
+        </div>
+    </form>
+</div>
