@@ -1,0 +1,33 @@
+﻿@model TitleViewModel
+@{
+    ViewData["Title"] = "Title details";
+}
+
+<h1>Title details</h1>
+
+<div class="">
+    <p>Name: @Model.Name</p>
+    <p>Genre: @Model.Genre</p>
+    <p>Description: @Model.Description</p>
+    <p>ReleaseDate: @Model.ReleaseDate</p>
+    <p>UserRating: @Model.UserRating</p>
+    <p>AverageRating: @Model.AverageRating</p>
+    <p>Characters: @Model.Characters</p>
+    <p>Staffs: @Model.Staffs</p>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="text-center"><a href="@Url.Action("Edit", "Title")" class="btn btn-primary">Edit</a></td>
+            <td class="text-center"><a href="@Url.Action("Delete", "Title")" class="btn btn-danger">Delete</a></td>
+        </tr>
+    }
+    </tbody>
+</table>
+<a href="@Url.Action("Index", "Home")" class="btn btn-primary">Back to list</a> 
