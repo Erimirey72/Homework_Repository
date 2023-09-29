@@ -1,0 +1,26 @@
+﻿@model CreateStaffModel
+
+<h2>Add New Staff</h2>
+
+@Html.ValidationSummary()
+
+<form asp-action="Create" method="post">
+    <div class="form-group" method="post">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Position"></label>
+        <input asp-for="Position" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" class="form-control" />
+    <div class="form-group">
+        <label asp-for="Titles"></label>
+            <input asp-for="Titles" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>
+
+<a asp-action="Index">Back to List</a>

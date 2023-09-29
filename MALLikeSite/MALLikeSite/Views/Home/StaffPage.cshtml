@@ -1,0 +1,34 @@
+﻿@model StaffPageViewModel
+@{
+    ViewData["Staff"] = "Staff Page";
+}
+
+<div class="table-responsive">
+    <a asp-action="Create" asp-controller="Staff" class="btn btn-primary">Add</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Staffs != null)
+            {
+                foreach (var staff in Model.Staffs)
+                {
+                    <tr>
+                        <td>@staff.Name</td>
+                        <td class="text-center"><a href="@Url.Action("Details", "Staff", new { id = staff.Id })" class="btn btn-primary">Details</a></td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="2">No staffs available.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
