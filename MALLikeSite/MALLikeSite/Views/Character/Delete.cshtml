@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Character"] = "Delete character";
+}
+@using (Html.BeginForm("Delete", "Character", new { id = Model.Id }, FormMethod.Post))
+{
+    <h1>Delete Character</h1>
+
+<div class="myform">
+        <h1 class="display-4">Delete character</h1>
+    <form asp-action="delete" method="post">
+        <input type="hidden" />
+        <div>
+            <p></p>
+            <button type="submit" class="btn btn-danger">Delete</button>
+                <a href="@Url.Action("CharacterPage", "Home")" class="btn btn-primary">Cancel</a>
+            <p></p>
+        </div>
+    </form>
+</div>
+}

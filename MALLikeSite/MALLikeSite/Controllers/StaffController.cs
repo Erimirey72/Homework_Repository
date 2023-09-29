@@ -101,7 +101,6 @@ namespace MALLikeSite.Controllers
             existingStaff.Name = model.Name;
             existingStaff.Position = model.Position;
             existingStaff.Description = model.Description;
-            existingStaff.Position = model.Position;
             existingStaff.Titles = model.Titles;
 
             _staffService.Edit(existingStaff);

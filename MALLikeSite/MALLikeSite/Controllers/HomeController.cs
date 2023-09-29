@@ -16,16 +16,18 @@ namespace MALLikeSite.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ITitleService _titleService;
         private readonly IStaffService _staffService;
+        private readonly ICharacterService _characterService;
 
         public HomeController(ILogger<HomeController> logger,
             UserManager<ApplicationUser> userManager,
-            RoleManager<IdentityRole> roleManager, ITitleService titleService, IStaffService staffService)
+            RoleManager<IdentityRole> roleManager, ITitleService titleService, IStaffService staffService, ICharacterService characterService)
         {
             _logger = logger;
             _userManager = userManager;
             _roleManager = roleManager;
             _titleService = titleService;
             _staffService = staffService;
+            _characterService = characterService;
         }
 
         public async Task<IActionResult> Index()
@@ -58,6 +60,17 @@ namespace MALLikeSite.Controllers
             var staffs = _staffService.GetAll();
 
             model.Staffs = staffs;
+
+            return View(model);
+        }
+
+        public IActionResult CharacterPage()
+        {
+            var model = new CharacterPageViewModel();
+
+            var characters = _characterService.GetAll();
+
+            model.Characters = characters;
 
             return View(model);
         }

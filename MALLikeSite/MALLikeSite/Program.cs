@@ -71,4 +71,6 @@ static void ConfigureServices(IServiceCollection services)
     services.AddScoped<IValidator<EditTitleModel>, EditTitleModelValidator>();
     services.AddScoped<IValidator<CreateStaffModel>, CreateStaffModelValidator>();
     services.AddScoped<IValidator<EditStaffModel>, EditStaffModelValidator>();
+    services.AddScoped<IValidator<CreateCharacterModel>, CreateCharacterModelValidator>();
+    services.AddScoped<IValidator<EditCharacterModel>, EditCharacterModelValidator>();
 }

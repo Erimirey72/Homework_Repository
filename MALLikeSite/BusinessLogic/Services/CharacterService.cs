@@ -44,6 +44,7 @@ namespace BusinessLogic.Services
             existingCharacter.Name = character.Name;
             existingCharacter.Description = character.Description;
             existingCharacter.Titles = character.Titles;
+            existingCharacter.VoiceActor = character.VoiceActor;
             existingCharacter.IsAproved = false;
 
             _application.SaveChanges();

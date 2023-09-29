@@ -1,6 +1,6 @@
-﻿@model CreateStaffModel
+﻿@model CreateCharacterModel
 
-<h2>Add New Staff</h2>
+<h2>Add New Character</h2>
 
 @Html.ValidationSummary()
 
@@ -10,15 +10,15 @@
         <input asp-for="Name" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="Position"></label>
-        <input asp-for="Position" class="form-control" />
-    </div>
-    <div class="form-group">
         <label asp-for="Description"></label>
         <input asp-for="Description" class="form-control" />
     <div class="form-group">
         <label asp-for="Titles"></label>
             <input asp-for="Titles" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="VoiceActor"></label>
+        <input asp-for="VoiceActor" class="form-control" />
     </div>
     <button type="submit" class="btn btn-primary">Add</button>
 </form>

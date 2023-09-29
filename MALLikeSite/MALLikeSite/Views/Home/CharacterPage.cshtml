@@ -1,0 +1,28 @@
+﻿@model CharacterPageViewModel
+@{
+    ViewData["Character"] = "Character Page";
+}
+
+<div class="table-responsive">
+    <a asp-action="Create" asp-controller="Character" class="btn btn-primary">Add</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Characters != null)
+            {
+                foreach (var character in Model.Characters)
+                {
+                    <tr>
+                        <td>@character.Name</td>
+                        <td class="text-center"><a href="@Url.Action("Details", "Character", new { id = character.Id })" class="btn btn-primary">Details</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
