@@ -9,14 +9,14 @@ using System.Xml.Linq;
 
 namespace MALLikeSite.Controllers
 {
-public class TitleController : Controller
+    public class TitleController : Controller
 {
         private readonly ILogger<TitleController> _logger;
         private readonly ITitleService _titleService;
         private readonly IValidator<CreateTitleModel> _createTitleValidator;
         private readonly IValidator<EditTitleModel> _editTitleValidator;
 
-        public TitleController(ILogger<TitleController> logger, ApplicationDbContext shop, ITitleService titleService, IValidator<CreateTitleModel> createTitleValidator, IValidator<EditTitleModel> editTitleValidator)
+        public TitleController(ILogger<TitleController> logger, ApplicationDbContext application, ITitleService titleService, IValidator<CreateTitleModel> createTitleValidator, IValidator<EditTitleModel> editTitleValidator)
         {
             _logger = logger;
             _titleService = titleService;
@@ -37,13 +37,13 @@ public class TitleController : Controller
             return View("Index", model);
         }
 
-        [HttpGet("create")]
+        [HttpGet("createtitle")]
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost("create")]
+        [HttpPost("createtitle")]
         public IActionResult Create([FromForm] CreateTitleModel model)
         {
             var validationResult = _createTitleValidator.Validate(model);
@@ -70,13 +70,12 @@ public class TitleController : Controller
             else
             {
                 throw new ArgumentException("Invalid input");
-                return View();
             }
 
             return Redirect("Title");
         }
 
-        [HttpGet("edit/{id}")]
+        [HttpGet("edittitle/{id}")]
         public IActionResult Edit(Guid id)
         {
             var title = _titleService.GetById(id);
@@ -95,25 +94,25 @@ public class TitleController : Controller
             return View(titleModel);
         }
 
-        [HttpPost("edit/{id}")]
+        [HttpPost("edittitle/{id}")]
         public IActionResult Edit(Guid id, [FromForm] EditTitleModel model)
         {
+            var existingTitle = _titleService.GetById(id);
             var validationResult = _editTitleValidator.Validate(model);
-            _titleService.Edit(new Title
-            {
-                Id = id,
-                Name = model.Name,
-                Genre = model.Genre,
-                Description = model.Description,
-                ReleaseDate = model.ReleaseDate,
-                Characters = model.Characters,
-                Staffs = model.Staffs
-            });
+
+            existingTitle.Name = model.Name;
+            existingTitle.Genre = model.Genre;
+            existingTitle.Description = model.Description;
+            existingTitle.ReleaseDate = model.ReleaseDate;
+            existingTitle.Characters = model.Characters;
+            existingTitle.Staffs = model.Staffs;
+
+            _titleService.Edit(existingTitle);
 
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpGet("delete/{id}")]
+        [HttpGet("deletetitle/{id}")]
         public IActionResult Delete(Guid id)
         {
             var title = _titleService.GetById(id);
@@ -121,7 +120,7 @@ public class TitleController : Controller
             return View(title);
         }
 
-        [HttpPost("Delete/{id}")]
+        [HttpPost("deletetitle/{id}")]
         public IActionResult ConfirmDeletion(Guid id)
         {
             try

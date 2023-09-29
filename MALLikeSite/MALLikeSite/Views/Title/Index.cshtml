@@ -8,7 +8,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>IdNew</th>
                 <th>Name</th>
                 <th>Details</th>
             </tr>
@@ -19,7 +18,6 @@
             @foreach (var title in Model.Titles)
             {
                 <tr>
-                    <td>@title.Id</td>
                     <td>@title.Name</td>
                         <td class="text-center"><a href="@Url.Action("Details", "Title", new { id = title.Id })" class="btn btn-primary">Details</a></td>
                 </tr>

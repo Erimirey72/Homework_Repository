@@ -107,10 +107,10 @@ namespace BusinessLogic.Services
         public Title GetById(Guid id)
         {
             var result = _application.Titles.FirstOrDefault(x => x.Id == id);
-            //if (result == null)
-           // {
-            //    throw new ArgumentException("No such id exists");
-           // }
+            if (result == null)
+            {
+                throw new ArgumentException("No such id exists");
+            }
 
             return result;
         }

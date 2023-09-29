@@ -68,7 +68,6 @@ namespace BusinessLogic.Services
         public IEnumerable<Staff> GetAll()
         {
             return _application.Staffs.ToList();
-
         }
 
         public Staff GetById(Guid id)

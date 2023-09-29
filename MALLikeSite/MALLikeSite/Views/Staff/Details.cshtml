@@ -1,0 +1,28 @@
+﻿@model StaffViewModel
+@{
+    ViewData["Staff"] = "Staff details";
+}
+
+<h1>Staff details</h1>
+
+<div class="">
+    <p>Name: @Model.Name</p>
+    <p>Position: @Model.Position</p>
+    <p>Description: @Model.Description</p>
+    <p>Titles: @Model.Titles</p>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td> <a asp-action="Edit" asp-controller="Staff" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a></td>
+            <td> <a asp-action="Delete" asp-controller="Staff" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a></td>
+        </tr>
+    </tbody>
+</table>
+<a href="@Url.Action("StaffPage", "Home")" class="btn btn-primary">Back to list</a> 

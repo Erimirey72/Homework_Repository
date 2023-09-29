@@ -26,6 +26,8 @@ builder.Services
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ITitleService, TitleService>();
+builder.Services.AddScoped<IStaffService, StaffService>();
+builder.Services.AddScoped<ICharacterService, CharacterService>();
 IMvcBuilder mvcBuilder = builder.Services.AddControllersWithViews()
         .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Program>());
 
@@ -58,7 +60,7 @@ app.MapRazorPages();
 
 app.Run();
 
-static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+static void ConfigureServices(IServiceCollection services)
 {
     services.AddDbContext<ApplicationDbContext>(options =>
     {
@@ -67,4 +69,6 @@ static void ConfigureServices(IServiceCollection services, IConfiguration config
 
     services.AddScoped<IValidator<CreateTitleModel>, CreateTitleModelValidator>();
     services.AddScoped<IValidator<EditTitleModel>, EditTitleModelValidator>();
+    services.AddScoped<IValidator<CreateStaffModel>, CreateStaffModelValidator>();
+    services.AddScoped<IValidator<EditStaffModel>, EditStaffModelValidator>();
 }

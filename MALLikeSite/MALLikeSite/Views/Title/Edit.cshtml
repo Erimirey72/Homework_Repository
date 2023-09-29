@@ -2,13 +2,14 @@
 @{
     ViewData["Title"] = "Edit title";
 }
-
-<h1>Edit Product</h1>
+@using (Html.BeginForm("Edit", "Title", new { id = Model.Id }, FormMethod.Post))
+{
+<h1>Edit Title</h1>
 
 <div class="myform">
     <h1 class="display-4">Edit title</h1>
-    <form asp-action="edit" method="post">
-        <input asp-for="Id" type="hidden" />
+    <form method="post" action="/Title/edittitle/@Model.Id">
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
         <div class="form-group" method="post">
             <label asp-for="Name"></label>
             <input asp-for="Name" class="form-control" />
@@ -41,3 +42,4 @@
         </div>
     </form>
 </div>
+}
