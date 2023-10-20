@@ -15,7 +15,7 @@ namespace MALLikeSite.Models
         public List<Character> Characters { get; set; }
         public List<Staff> Staffs { get; set; }
 
-        public bool IsAproved;
+        public bool IsApproved;
 
     }
 

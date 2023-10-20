@@ -5,6 +5,7 @@ using FluentValidation;
 using BusinessLogic;
 using Models;
 using BusinessLogic.Services;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 
 namespace MALLikeSite.Controllers
@@ -13,18 +14,18 @@ namespace MALLikeSite.Controllers
     {
         private readonly ILogger<StaffController> _logger;
         private readonly IStaffService _staffService;
+        private readonly ITitleService _titleService;
         private readonly IValidator<CreateStaffModel> _createStaffValidator;
         private readonly IValidator<EditStaffModel> _editStaffValidator;
 
-        public StaffController(ILogger<StaffController> logger, ApplicationDbContext application, IStaffService staffService, IValidator<CreateStaffModel> createStaffValidator, IValidator<EditStaffModel> editStaffValidator)
+        public StaffController(ILogger<StaffController> logger, ApplicationDbContext application, IStaffService staffService, ITitleService titleService, IValidator<CreateStaffModel> createStaffValidator, IValidator<EditStaffModel> editStaffValidator)
         {
             _logger = logger;
             _staffService = staffService;
             _createStaffValidator = createStaffValidator;
             _editStaffValidator = editStaffValidator;
+            _titleService = titleService;
         }
-
-        private static List<Staff> staffs = new List<Staff>();
 
         public IActionResult StaffPage()
         {
@@ -34,13 +35,18 @@ namespace MALLikeSite.Controllers
 
             model.Staffs = staffs;
 
-            return View("StaffPage", model);
+            return View(model);
         }
 
         [HttpGet("createstaff")]
         public IActionResult Create()
         {
-            return View();
+            var model = new CreateStaffModel
+            {
+                TitlesSelectList = _titleService.GetAll().Select(title =>
+                    new SelectListItem { Value = title.Id.ToString(), Text = title.Name }).ToList()
+            };
+            return View(model);
         }
 
         [HttpPost("createstaff")]
@@ -58,6 +64,7 @@ namespace MALLikeSite.Controllers
                         Position = staff.Position,
                         Description = staff.Description,
                         Titles = staff.Titles,
+                        IsApproved = staff.IsApproved == false
                     });
 
                     return RedirectToAction("StaffPage", "Home");
@@ -70,7 +77,8 @@ namespace MALLikeSite.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Invalid input");
+                staff.TitlesSelectList = _titleService.GetAll().Select(title =>
+            new SelectListItem { Value = title.Id.ToString(), Text = title.Name }).ToList();
                 return View(staff);
             }
         }
@@ -87,6 +95,7 @@ namespace MALLikeSite.Controllers
                 Position = staff.Position,
                 Description = staff.Description,
                 Titles = staff.Titles,
+                IsApproved = staff.IsApproved == false
             };
 
             return View(staffModel);
@@ -102,6 +111,7 @@ namespace MALLikeSite.Controllers
             existingStaff.Position = model.Position;
             existingStaff.Description = model.Description;
             existingStaff.Titles = model.Titles;
+            existingStaff.IsApproved = model.IsApproved = false;
 
             _staffService.Edit(existingStaff);
 

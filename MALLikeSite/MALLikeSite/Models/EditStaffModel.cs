@@ -11,7 +11,7 @@ namespace MALLikeSite.Models
         public List<Title> Titles { get; set; }
         public string Description { get; set; }
 
-        public bool IsAproved;
+        public bool IsApproved;
 
     }
 

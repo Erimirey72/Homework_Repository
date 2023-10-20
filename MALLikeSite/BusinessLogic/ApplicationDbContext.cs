@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace BusinessLogic
 {
@@ -32,6 +34,6 @@ namespace BusinessLogic
 public class ApplicationUser : IdentityUser
 {
     public DateTime CreatedAt { get; set; }
-
     public DateTime LastVisitedAt { get; set; }
+    public List<Title> MyTitles { get; set; } = new List<Title>();
 }

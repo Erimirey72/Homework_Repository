@@ -12,7 +12,9 @@ namespace BusinessLogic.Interfaces
         Title GetById(Guid id);
         Title Edit(Title title);
         void DeleteById(Guid id);
-        public Title Aprove(Title title);
+        public Title Approve(Guid titleId);
         public Title Vote(Title title);
+        public List<Title> GetApproved();
+        public List<Title> GetUnapproved();
     }
 }

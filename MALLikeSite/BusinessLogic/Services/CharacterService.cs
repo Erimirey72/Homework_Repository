@@ -45,21 +45,21 @@ namespace BusinessLogic.Services
             existingCharacter.Description = character.Description;
             existingCharacter.Titles = character.Titles;
             existingCharacter.VoiceActor = character.VoiceActor;
-            existingCharacter.IsAproved = false;
+            existingCharacter.IsApproved = false;
 
             _application.SaveChanges();
 
             return existingCharacter;
         }
 
-        public Character Aprove(Character character)
+        public Character Approve(Guid characterId)
         {
-            var existingCharacter = _application.Characters.FirstOrDefault(x => x.Id == character.Id);
+            var existingCharacter = _application.Characters.FirstOrDefault(x => x.Id == characterId);
             if (existingCharacter == null)
             {
                 throw new ArgumentException("No such id exists");
             }
-            existingCharacter.IsAproved = true;
+            existingCharacter.IsApproved = true;
 
             _application.SaveChanges();
 
@@ -92,6 +92,14 @@ namespace BusinessLogic.Services
             }
 
             return baseQuery.ToList();
+        }
+        public List<Character> GetApproved()
+        {
+            return _application.Characters.Where(t => t.IsApproved).ToList();
+        }
+        public List<Character> GetUnapproved()
+        {
+            return _application.Characters.Where(t => t.IsApproved == false).ToList();
         }
     }
 }

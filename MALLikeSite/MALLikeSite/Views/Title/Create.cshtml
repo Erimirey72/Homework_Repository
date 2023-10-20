@@ -1,4 +1,5 @@
 ﻿@model CreateTitleModel
+@using MALLikeSite.Models
 
 <h2>Add New Title</h2>
 
@@ -22,12 +23,12 @@
         <input asp-for="ReleaseDate" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="Characters"></label>
-        <input asp-for="Characters" class="form-control" />
+        <label asp-for="SelectedStaffId">Select Staff:</label>
+        <select asp-for="SelectedStaffId" asp-items="@Model.StaffsSelectList" class="form-control"></select>
     </div>
     <div class="form-group">
-        <label asp-for="Staffs"></label>
-        <input asp-for="Staffs" class="form-control" />
+        <label asp-for="SelectedCharacterId">Select Character:</label>
+        <select asp-for="SelectedCharacterId" asp-items="@Model.CharactersSelectList" class="form-control"></select>
     </div>
     <button type="submit" class="btn btn-primary">Add</button>
 </form>

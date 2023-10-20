@@ -1,0 +1,60 @@
+﻿@model ApprovePageViewModel
+
+<h2>Approve Unapproved Objects</h2>
+
+<h3>Titles:</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var title in Model.Item1)
+        {
+            <tr>
+                <td>@title.Name</td>
+                <td class="text-center"><a href="@Url.Action("Approve", "Title", new { id = title.Id })" class="btn btn-primary">Approve</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Staff:</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Staff Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var staff in Model.Item2)
+        {
+            <tr>
+                <td>@staff.Name</td>
+                <td class="text-center"><a href="@Url.Action("Approve", "Staff", new { id = staff.Id })" class="btn btn-primary">Approve</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Characters:</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Character Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var character in Model.Item3)
+        {
+            <tr>
+                <td>@character.Name</td>
+                <td class="text-center"><a href="@Url.Action("Approve", "Character", new { id = character.Id })" class="btn btn-primary">Approve</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

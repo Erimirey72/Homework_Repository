@@ -12,8 +12,8 @@ namespace MALLikeSite.Models
         public int UserRating { get; set; }
         public decimal AverageRating { get; set; }
         public List<Character> Characters { get; set; }
-        public List<Staff> Staffs { get; set; }
 
         public bool IsAproved;
+        public List<Staff> Staffs { get; set; }
     }
 }

@@ -6,6 +6,9 @@ using BusinessLogic;
 using Models;
 using Humanizer.Localisation;
 using System.Xml.Linq;
+using BusinessLogic.Services;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Identity;
 
 namespace MALLikeSite.Controllers
 {
@@ -13,15 +16,21 @@ namespace MALLikeSite.Controllers
 {
         private readonly ILogger<TitleController> _logger;
         private readonly ITitleService _titleService;
+        private readonly IStaffService _staffService;
+        private readonly ICharacterService _characterService;
         private readonly IValidator<CreateTitleModel> _createTitleValidator;
         private readonly IValidator<EditTitleModel> _editTitleValidator;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public TitleController(ILogger<TitleController> logger, ApplicationDbContext application, ITitleService titleService, IValidator<CreateTitleModel> createTitleValidator, IValidator<EditTitleModel> editTitleValidator)
+        public TitleController(UserManager<ApplicationUser> userManager, ILogger<TitleController> logger, ApplicationDbContext application, ITitleService titleService, IStaffService staffService, ICharacterService characterService, IValidator<CreateTitleModel> createTitleValidator, IValidator<EditTitleModel> editTitleValidator)
         {
             _logger = logger;
             _titleService = titleService;
+            _staffService = staffService;
             _createTitleValidator = createTitleValidator;
             _editTitleValidator = editTitleValidator;
+            _characterService = characterService;
+            _userManager = userManager;
         }
 
         private static List<Title> titles = new List<Title>();
@@ -40,7 +49,15 @@ namespace MALLikeSite.Controllers
         [HttpGet("createtitle")]
         public IActionResult Create()
         {
-            return View();
+            var model = new CreateTitleModel
+            {
+                StaffsSelectList = _staffService.GetAll().Select(staff =>
+            new SelectListItem { Value = staff.Id.ToString(), Text = staff.Name }).ToList(),
+                CharactersSelectList = _characterService.GetAll().Select(сharacter =>
+             new SelectListItem { Value = сharacter.Id.ToString(), Text = сharacter.Name }).ToList()
+            };
+
+            return View(model);
         }
 
         [HttpPost("createtitle")]
@@ -59,7 +76,8 @@ namespace MALLikeSite.Controllers
                         Description = model.Description,
                         ReleaseDate = model.ReleaseDate,
                         Characters = model.Characters,
-                        Staffs = model.Staffs
+                        Staffs = model.Staffs,
+                        IsApproved = model.IsApproved == false
                     });
                 }
                 catch (Exception e)
@@ -69,7 +87,11 @@ namespace MALLikeSite.Controllers
             }
             else
             {
-                throw new ArgumentException("Invalid input");
+                model.StaffsSelectList = _staffService.GetAll().Select(staff =>
+             new SelectListItem { Value = staff.Id.ToString(), Text = staff.Name }).ToList();
+                model.CharactersSelectList = _characterService.GetAll().Select(сharacter =>
+             new SelectListItem { Value = сharacter.Id.ToString(), Text = сharacter.Name }).ToList();
+                return View(model);
             }
 
             return Redirect("Title");
@@ -88,7 +110,8 @@ namespace MALLikeSite.Controllers
                 Description = title.Description,
                 ReleaseDate = title.ReleaseDate,
                 Characters = title.Characters,
-                Staffs = title.Staffs
+                Staffs = title.Staffs,
+                IsApproved = title.IsApproved
             };
 
             return View(titleModel);
@@ -106,6 +129,7 @@ namespace MALLikeSite.Controllers
             existingTitle.ReleaseDate = model.ReleaseDate;
             existingTitle.Characters = model.Characters;
             existingTitle.Staffs = model.Staffs;
+            existingTitle.IsApproved = false;
 
             _titleService.Edit(existingTitle);
 
@@ -150,10 +174,31 @@ namespace MALLikeSite.Controllers
                 UserRating = title.UserRating,
                 AverageRating = title.AverageRating,
                 Characters = title.Characters,
-                Staffs = title.Staffs,
+                Staffs = title.Staffs
             };
 
             return View(titleModel);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddToMyList(Guid id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var title = _titleService.GetById(id);
+            if (title == null)
+            {
+                return NotFound();
+            }
+
+            user.MyTitles ??= new List<Title>();
+            user.MyTitles.Add(title);
+            await _userManager.UpdateAsync(user);
+
+            return RedirectToAction("Index");
         }
     }
 }

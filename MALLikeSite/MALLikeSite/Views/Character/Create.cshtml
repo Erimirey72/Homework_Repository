@@ -12,14 +12,14 @@
     <div class="form-group">
         <label asp-for="Description"></label>
         <input asp-for="Description" class="form-control" />
-    <div class="form-group">
-        <label asp-for="Titles"></label>
-            <input asp-for="Titles" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="VoiceActor"></label>
-        <input asp-for="VoiceActor" class="form-control" />
-    </div>
+        <div class="form-group">
+            <label asp-for="SelectedStaffId">Select Voice Actor:</label>
+            <select asp-for="SelectedStaffId" asp-items="@Model.StaffsSelectList" class="form-control"></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="SelectedTitleId">Select Title:</label>
+            <select asp-for="SelectedTitleId" asp-items="@Model.TitlesSelectList" class="form-control"></select>
+        </div>
     <button type="submit" class="btn btn-primary">Add</button>
 </form>
 

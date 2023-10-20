@@ -74,6 +74,46 @@ namespace MALLikeSite.Controllers
 
             return View(model);
         }
+        public async Task<IActionResult> MyList()
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var myTitles = currentUser.MyTitles;
+
+            var myListViewModel = new MyListViewModel
+            {
+                MyTitles = myTitles
+            };
+
+            return View(myListViewModel);
+        }
+        public async Task<IActionResult> ApprovePage()
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var titles = _titleService.GetUnapproved();
+            var staffs = _staffService.GetUnapproved();
+            var characters = _characterService.GetUnapproved();
+
+            var approvePageViewModel = new ApprovePageViewModel
+            {
+                Item1 = titles,
+                Item2 = staffs,
+                Item3 = characters
+            };
+
+            return View(approvePageViewModel);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

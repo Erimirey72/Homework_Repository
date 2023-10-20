@@ -51,21 +51,21 @@ namespace BusinessLogic.Services
             existingTitle.ReleaseDate = title.ReleaseDate;
             existingTitle.Staffs = title.Staffs;
             existingTitle.Characters = title.Characters;
-            existingTitle.IsAproved = false;
+            existingTitle.IsApproved = false;
 
             _application.SaveChanges();
 
             return existingTitle;
         }
 
-        public Title Aprove(Title title)
+        public Title Approve(Guid titleId)
         {
-            var existingTitle = _application.Titles.FirstOrDefault(x => x.Id == title.Id);
+            var existingTitle = _application.Titles.FirstOrDefault(x => x.Id == titleId);
             if (existingTitle == null)
             {
                 throw new ArgumentException("No such id exists");
             }
-            existingTitle.IsAproved = true;
+            existingTitle.IsApproved = true;
 
             _application.SaveChanges();
 
@@ -129,6 +129,14 @@ namespace BusinessLogic.Services
             }
 
             return baseQuery.ToList();
+        }
+        public List<Title> GetApproved()
+        {
+            return _application.Titles.Where(t => t.IsApproved).ToList();
+        }
+        public List<Title> GetUnapproved()
+        {
+            return _application.Titles.Where(t => t.IsApproved == false).ToList();
         }
     }
 }

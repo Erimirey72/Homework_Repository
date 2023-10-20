@@ -1,0 +1,17 @@
+﻿@model MyListViewModel
+
+<h2>My List</h2>
+
+@if (Model.MyTitles != null && Model.MyTitles.Any())
+{
+    <ul>
+        @foreach (var title in Model.MyTitles)
+        {
+            <li>@title.Name</li>
+        }
+    </ul>
+}
+else
+{
+    <p>Your list is empty.</p>
+}

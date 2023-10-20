@@ -44,21 +44,21 @@ namespace BusinessLogic.Services
             existingStaff.Name = staff.Name;
             existingStaff.Description = staff.Description;
             existingStaff.Titles = staff.Titles;
-            existingStaff.IsAproved = false;
+            existingStaff.IsApproved = false;
 
             _application.SaveChanges();
 
             return existingStaff;
         }
 
-        public Staff Aprove(Staff staff)
+        public Staff Approve(Guid staffId)
         {
-            var existingStaff = _application.Staffs.FirstOrDefault(x => x.Id == staff.Id);
+            var existingStaff = _application.Staffs.FirstOrDefault(x => x.Id == staffId);
             if (existingStaff == null)
             {
                 throw new ArgumentException("No such id exists");
             }
-            existingStaff.IsAproved = true;
+            existingStaff.IsApproved = true;
 
             _application.SaveChanges();
 
@@ -90,6 +90,14 @@ namespace BusinessLogic.Services
             }
 
             return baseQuery.ToList();
+        }
+        public List<Staff> GetApproved()
+        {
+            return _application.Staffs.Where(t => t.IsApproved).ToList();
+        }
+        public List<Staff> GetUnapproved()
+        {
+            return _application.Staffs.Where(t => t.IsApproved == false).ToList();
         }
     }
 }

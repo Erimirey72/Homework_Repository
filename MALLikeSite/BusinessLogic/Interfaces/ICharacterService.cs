@@ -10,6 +10,8 @@ namespace BusinessLogic.Interfaces
         Character GetById(Guid id);
         Character Edit(Character character);
         void DeleteById(Guid id);
-        public Character Aprove(Character character);
+        public Character Approve(Guid characterId);
+        public List<Character> GetApproved();
+        public List<Character> GetUnapproved();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
 
 namespace MALLikeSite.Models
@@ -9,6 +10,9 @@ namespace MALLikeSite.Models
         public string Position { get; set; }
         public string Description { get; set; }
         public List<Title> Titles { get; set; }
+        public Guid SelectedTitleId { get; set; }
+        public List<SelectListItem> TitlesSelectList { get; set; }
+        public bool IsApproved;
     }
 
     public class CreateStaffModelValidator : AbstractValidator<CreateStaffModel>

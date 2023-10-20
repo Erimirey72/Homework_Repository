@@ -10,6 +10,8 @@ namespace BusinessLogic.Interfaces
         Staff GetById(Guid id);
         Staff Edit(Staff staff);
         void DeleteById(Guid id);
-        public Staff Aprove(Staff staff);
+        public Staff Approve(Guid staffId);
+        public List<Staff> GetApproved();
+        public List<Staff> GetUnapproved();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
 
 namespace MALLikeSite.Models
@@ -11,6 +12,11 @@ namespace MALLikeSite.Models
         public DateTime ReleaseDate { get; set; }
         public List<Character> Characters { get; set; }
         public List<Staff> Staffs { get; set; }
+        public Guid SelectedStaffId { get; set; }
+        public List<SelectListItem> StaffsSelectList { get; set; }
+        public Guid SelectedCharacterId { get; set; }
+        public List<SelectListItem> CharactersSelectList { get; set; }
+        public bool IsApproved;
     }
 
     public class CreateTitleModelValidator : AbstractValidator<CreateTitleModel>

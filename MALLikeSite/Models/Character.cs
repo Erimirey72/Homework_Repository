@@ -8,6 +8,6 @@
         public List<Staff> VoiceActor { get; set; }
         public string Description { get; set; }
 
-        public bool IsAproved;
+        public bool IsApproved;
     }
 }
