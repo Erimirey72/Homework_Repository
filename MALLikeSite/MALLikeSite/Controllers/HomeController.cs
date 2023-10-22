@@ -32,24 +32,14 @@ namespace MALLikeSite.Controllers
 
         public async Task<IActionResult> Index()
         {
-            // For sample purposes seed both with the same password.
-            // Password is set with the following:
-            // dotnet user-secrets set SeedUserPW <pw>
-            // The admin user can do anything
-
             var adminID = await EnsureUser("qwerty123QWERTY`", "admin@contoso.com");
             await EnsureRole(adminID, "Admin");
-
-            // allowed user can create and edit contacts that they create
-            var managerID = await EnsureUser("qwerty123QWERTY`", "manager@contoso.com");
-            await EnsureRole(managerID, "Manager");
 
             var model = new IndexViewModel();
 
             var titles = _titleService.GetAll();
 
             model.Titles = titles;
-            //SeedDB(context, adminID);
             return View(model);
         }
 
